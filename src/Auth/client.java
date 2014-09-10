@@ -79,6 +79,26 @@ public class client {
         return map;
     }
     
+    public static Double[] sellPosition(String coin) throws Exception {
+        TreeMap<String, String> map = position("btc");
+        Double[] hold = {0., 0.};
+        try {String text = map.get("sell").replaceAll("=", ":");
+        Double amount = URLReader.jsonConverter(text).getDouble("total");
+        Double times = URLReader.jsonConverter(text).getDouble("times");
+        hold[0] = amount; hold[1] = times;} catch (Exception e) {}
+        return hold;
+    }
+    
+    public static Double[] buyPosition(String coin) throws Exception {
+        TreeMap<String, String> map = position("btc");
+        Double[] hold = {0., 0.};
+        try {String text = map.get("buy").replaceAll("=", ":");
+        Double amount = URLReader.jsonConverter(text).getDouble("total");
+        Double times = URLReader.jsonConverter(text).getDouble("times");
+        hold[0] = amount; hold[1] = times;} catch (Exception e) {}
+        return hold;
+    }
+    
     public static String openBuy(String coin, Double vol, Double price, Integer times) throws Exception {
         TreeMap<String, String> params = new TreeMap<>();
         params.put("buy_num", vol.toString());
@@ -124,10 +144,4 @@ public class client {
         params.put("bs", bs);
         return futures(coin, "/cancel_all", auth.encodeParams(params));
     }
-    
-    /*public static void main(String[] args) throws Exception {
-        System.out.println(position("btc"));
-        System.out.println(orders("btc"));
-        System.out.println(balance("btc"));
-    }*/
 }
