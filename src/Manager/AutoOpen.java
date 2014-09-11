@@ -1,4 +1,4 @@
-package Trader;
+package Manager;
 
 import Index.*;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class AutoOpen {
         return 0; // by default return 0: wait
     }
     
-    public static void main(String[] args) throws Exception {
+    public static void run() throws Exception {
         
         if (SetUp.Open() == 0) { System.exit(0); } // normally closed
         

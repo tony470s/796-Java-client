@@ -1,4 +1,4 @@
-package Trader;
+package Manager;
 
 import Auth.client;
 import Index.*;
@@ -35,16 +35,32 @@ public class AutoClose {
         return 0;
     }
     
-    public static void main(String[] args) throws Exception {
+    public static void run() throws Exception {
         
         if (SetUp.Close() == 0) { System.exit(0); } // normally closed
         
-        int sig = sellSignal();
-        if (sig > 0) { Trade.closeBuy(); } // buy
-        if (sig < 0) { Trade.closeSell(); } // sell
+        Thread t1, t2;
         
-        int sig2 = sellSignal2();
-        if (sig2 > 0) { Trade.closeBuy(); }
-        if (sig2 < 0) { Trade.closeSell(); }
+        t1 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    int sig = sellSignal();
+                    if (sig > 0) { Trade.closeBuy(); }
+                    if (sig < 0) { Trade.closeSell(); } // sell
+                } catch (Exception e) { e.printStackTrace(); }
+            }
+        });
+        
+        t2 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    int sig = sellSignal2();
+                    if (sig > 0) { Trade.closeBuy(); }
+                    if (sig < 0) { Trade.closeSell(); }
+                } catch (Exception e) { e.printStackTrace(); }
+            }
+        });
+        
+        t1.start(); t2.start();
     }
 }

@@ -1,4 +1,4 @@
-package Trader;
+package Manager;
 
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;

@@ -1,4 +1,4 @@
-package Trader;
+package Manager;
 
 import API.Ticker;
 import Auth.client;

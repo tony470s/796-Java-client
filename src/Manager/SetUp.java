@@ -1,4 +1,4 @@
-package Trader;
+package Manager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,7 +63,7 @@ public class SetUp {
             String Line = reader.readLine(); 
             while (Line != null) {
                 try {
-                    Pattern stopLoss = Pattern.compile("auto-open.*=(.+)");
+                    Pattern stopLoss = Pattern.compile("auto-open.*=.*(\\d)");
                     Matcher m = stopLoss.matcher(Line.toLowerCase()); m.find();
                     return Integer.valueOf(m.group(1));
                 } catch (Exception e) {}
@@ -79,10 +79,10 @@ public class SetUp {
             String Line = reader.readLine(); 
             while (Line != null) {
                 try {
-                    Pattern stopLoss = Pattern.compile("auto-close.*=(.+)");
+                    Pattern stopLoss = Pattern.compile("auto-close.*=.*(\\d)");
                     Matcher m = stopLoss.matcher(Line.toLowerCase()); m.find();
                     return Integer.valueOf(m.group(1));
-                } catch (Exception e) {}
+                } catch (Exception e) { }
                 Line = reader.readLine();
             }
         } return 1;
