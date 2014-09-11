@@ -26,6 +26,9 @@ public class AutoOpen {
     }
     
     public static void main(String[] args) throws Exception {
+        
+        if (SetUp.Open() == 0) { System.exit(0); } // normally closed
+        
         int sig = buySignal();
         if (sig > 0) { Trade.Buy(); } // buy
         if (sig < 0) { Trade.Sell(); } // sell

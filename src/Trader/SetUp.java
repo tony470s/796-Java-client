@@ -12,7 +12,7 @@ public class SetUp {
         
         String path = new File("setup.ini").getAbsolutePath();
         try (BufferedReader reader = new BufferedReader(new FileReader(path));) { 
-            String Line = reader.readLine(); 
+            String Line = reader.readLine();
             while (Line != null) {
                 try {
                     Pattern stopLoss = Pattern.compile("stoploss.*=(.+)");
@@ -54,5 +54,37 @@ public class SetUp {
                 Line = reader.readLine();
             }
         } return 10;
+    }
+    
+    public static Integer Open() throws Exception {
+        
+        String path = new File("setup.ini").getAbsolutePath();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path));) { 
+            String Line = reader.readLine(); 
+            while (Line != null) {
+                try {
+                    Pattern stopLoss = Pattern.compile("auto-open.*=(.+)");
+                    Matcher m = stopLoss.matcher(Line.toLowerCase()); m.find();
+                    return Integer.valueOf(m.group(1));
+                } catch (Exception e) {}
+                Line = reader.readLine();
+            }
+        } return 1;
+    }
+    
+    public static Integer Close() throws Exception {
+        
+        String path = new File("setup.ini").getAbsolutePath();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path));) { 
+            String Line = reader.readLine(); 
+            while (Line != null) {
+                try {
+                    Pattern stopLoss = Pattern.compile("auto-close.*=(.+)");
+                    Matcher m = stopLoss.matcher(Line.toLowerCase()); m.find();
+                    return Integer.valueOf(m.group(1));
+                } catch (Exception e) {}
+                Line = reader.readLine();
+            }
+        } return 1;
     }
 }

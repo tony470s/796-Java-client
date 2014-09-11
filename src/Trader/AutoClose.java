@@ -37,6 +37,8 @@ public class AutoClose {
     
     public static void main(String[] args) throws Exception {
         
+        if (SetUp.Close() == 0) { System.exit(0); } // normally closed
+        
         int sig = sellSignal();
         if (sig > 0) { Trade.closeBuy(); } // buy
         if (sig < 0) { Trade.closeSell(); } // sell
