@@ -5,16 +5,17 @@ import Auth.client;
 
 public class Trade {
 
-    private static final double ratio = 0.25;
     
     public static void Buy() throws Exception {
         while ( true ) {
             try {
+                Double ratio = SetUp.Kelly();
+                Integer leverage = SetUp.Leverage();
                 Double balance = client.balance("btc");
                 Double volume = balance * ratio;
                 Double price = Ticker.last("btc");
                 client.cancelAll("btc", "buy");
-                client.openBuy("btc", volume, price, 10); break;
+                client.openBuy("btc", volume, price, leverage); break;
             } catch (Exception e) {} 
         }
     }
@@ -22,11 +23,13 @@ public class Trade {
     public static void Sell() throws Exception {
         while ( true ) {
             try {
+                Double ratio = SetUp.Kelly();
+                Integer leverage = SetUp.Leverage();
                 Double balance = client.balance("btc");
                 Double volume = balance * ratio;
                 Double price = Ticker.last("btc");
                 client.cancelAll("btc", "sell");
-                client.openSell("btc", volume, price, 10); break;
+                client.openSell("btc", volume, price, leverage); break;
             } catch (Exception e) {}
         }
     }

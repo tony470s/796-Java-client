@@ -81,21 +81,23 @@ public class client {
     
     public static Double[] sellPosition(String coin) throws Exception {
         TreeMap<String, String> map = position("btc");
-        Double[] hold = {0., 0.};
+        Double[] hold = {0., 0., 0.};
         try {String text = map.get("sell").replaceAll("=", ":");
         Double amount = URLReader.jsonConverter(text).getDouble("total");
         Double times = URLReader.jsonConverter(text).getDouble("times");
-        hold[0] = amount; hold[1] = times;} catch (Exception e) {}
+        Double prcnt = Double.valueOf(URLReader.jsonConverter(text).getString("ykl").replace("%", ""));
+        hold[0] = amount; hold[1] = times; hold[2] = prcnt;} catch (Exception e) {}
         return hold;
     }
     
     public static Double[] buyPosition(String coin) throws Exception {
         TreeMap<String, String> map = position("btc");
-        Double[] hold = {0., 0.};
+        Double[] hold = {0., 0., 0.};
         try {String text = map.get("buy").replaceAll("=", ":");
         Double amount = URLReader.jsonConverter(text).getDouble("total");
         Double times = URLReader.jsonConverter(text).getDouble("times");
-        hold[0] = amount; hold[1] = times;} catch (Exception e) {}
+        Double prcnt = Double.valueOf(URLReader.jsonConverter(text).getString("ykl").replace("%", ""));
+        hold[0] = amount; hold[1] = times; hold[2] = prcnt;} catch (Exception e) {}
         return hold;
     }
     
